@@ -1,0 +1,75 @@
+{
+  "name": "faaah-terminal-error",
+  "displayName": "FAAAH on Terminal Error",
+  "description": "Plays FAAAH whenever a terminal command or VS Code task fails.",
+  "version": "0.1.0",
+  "publisher": "local",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "terminal",
+    "error",
+    "sound",
+    "notification",
+    "meme"
+  ],
+  "extensionKind": [
+    "ui"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "faaah.playSound",
+        "title": "FAAAH: Play Sound"
+      },
+      {
+        "command": "faaah.toggle",
+        "title": "FAAAH: Enable/Disable"
+      }
+    ],
+    "configuration": {
+      "title": "FAAAH",
+      "properties": {
+        "faaah.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Play the FAAAH sound when a terminal command or task fails."
+        },
+        "faaah.cooldownMs": {
+          "type": "number",
+          "default": 1500,
+          "minimum": 0,
+          "maximum": 60000,
+          "description": "Minimum time in milliseconds between two sounds. This also prevents duplicate sounds when a failed task is reported by both APIs."
+        },
+        "faaah.notifyOnError": {
+          "type": "boolean",
+          "default": false,
+          "description": "Also show a VS Code notification when a failure is detected."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test out/test/audioPlayer.test.js",
+    "package": "vsce package --allow-missing-repository"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/vscode": "^1.93.0",
+    "@vscode/vsce": "^3.2.1",
+    "typescript": "^5.7.2"
+  }
+}
